@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzlg.flowable.mapper.ActivityLogMapper">
+    <insert id="insert" parameterType="com.hzlg.flowable.po.ActivityLog" >
+        insert into lg_activity_log (creater, create_time, opinion, outcome, creater_name, activity_name,process_instance_id)
+        values (#{creater}, #{createTime}, #{opinion}, #{outcome}, #{createrName}, #{activityName}, #{processInstanceId})
+    </insert>
+</mapper>

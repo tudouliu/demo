@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="yxghgzz" name="yxghgzz" isExecutable="true">
+    <documentation>优秀工会工作者申报</documentation>
+    <startEvent id="startEvent1"></startEvent>
+    <userTask id="sid-1F3878B0-93D0-4495-A747-7A1881E97D3B" name="分工会意见">
+      <extensionElements>
+        <flowable:formProperty id="FGHYJ" name="分工会意见" type="string" required="true"></flowable:formProperty>
+        <flowable:formProperty id="FGHYJ_SJ" name="分工会意见时间" type="date" expression="${currentTime}" datePattern="yyyy-MM-dd hh:mm:ss" required="true"></flowable:formProperty>
+        <flowable:formProperty id="FGHYJ_SPR" name="分工会意见审批人" type="string" expression="${admin.username}" required="true"></flowable:formProperty>
+        <flowable:isrecordeditable>ZmFsc2U=</flowable:isrecordeditable>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-5A65F474-7957-4C71-A431-5CEDDF05B0A5" sourceRef="startEvent1" targetRef="sid-1F3878B0-93D0-4495-A747-7A1881E97D3B"></sequenceFlow>
+    <userTask id="sid-60F8252F-BB0F-447B-90B7-B7764E5393D8" name="二级党组织意见">
+      <extensionElements>
+        <flowable:formProperty id="EJDZZ" name="二级党组织" type="string" required="true"></flowable:formProperty>
+        <flowable:formProperty id="EJDZZ_SJ" name="二级党组织时间" type="date" expression="${currentTime}" datePattern="yyyy-MM-dd hh:mm:ss"></flowable:formProperty>
+        <flowable:formProperty id="EJDZZ_SPR" name="二级党组织审批人" type="string"></flowable:formProperty>
+        <flowable:isrecordeditable>ZmFsc2U=</flowable:isrecordeditable>
+      </extensionElements>
+    </userTask>
+    <endEvent id="sid-411F64E2-408D-4510-A604-3E4DBBBCB636"></endEvent>
+    <sequenceFlow id="sid-394B6A4B-4420-4E72-A342-E78303355449" sourceRef="sid-1F3878B0-93D0-4495-A747-7A1881E97D3B" targetRef="sid-60F8252F-BB0F-447B-90B7-B7764E5393D8"></sequenceFlow>
+    <sequenceFlow id="sid-B98EF882-FC76-4747-9D1F-2064E3AA9001" sourceRef="sid-60F8252F-BB0F-447B-90B7-B7764E5393D8" targetRef="sid-411F64E2-408D-4510-A604-3E4DBBBCB636"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_yxghgzz">
+    <bpmndi:BPMNPlane bpmnElement="yxghgzz" id="BPMNPlane_yxghgzz">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1F3878B0-93D0-4495-A747-7A1881E97D3B" id="BPMNShape_sid-1F3878B0-93D0-4495-A747-7A1881E97D3B">
+        <omgdc:Bounds height="80.0" width="100.0" x="315.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-60F8252F-BB0F-447B-90B7-B7764E5393D8" id="BPMNShape_sid-60F8252F-BB0F-447B-90B7-B7764E5393D8">
+        <omgdc:Bounds height="80.0" width="100.0" x="555.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-411F64E2-408D-4510-A604-3E4DBBBCB636" id="BPMNShape_sid-411F64E2-408D-4510-A604-3E4DBBBCB636">
+        <omgdc:Bounds height="28.0" width="28.0" x="825.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-394B6A4B-4420-4E72-A342-E78303355449" id="BPMNEdge_sid-394B6A4B-4420-4E72-A342-E78303355449">
+        <omgdi:waypoint x="414.9499999999477" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="555.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B98EF882-FC76-4747-9D1F-2064E3AA9001" id="BPMNEdge_sid-B98EF882-FC76-4747-9D1F-2064E3AA9001">
+        <omgdi:waypoint x="654.9499999999273" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="825.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-5A65F474-7957-4C71-A431-5CEDDF05B0A5" id="BPMNEdge_sid-5A65F474-7957-4C71-A431-5CEDDF05B0A5">
+        <omgdi:waypoint x="129.94999970750393" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="314.99999999991076" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

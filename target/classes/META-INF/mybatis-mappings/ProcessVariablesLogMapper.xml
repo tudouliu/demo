@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzlg.flowable.mapper.ProcessVariablesLogMapper">
+    <insert id="insert" parameterType="com.hzlg.flowable.po.ProcessVariablesLog">
+        insert into lg_process_variables_log(creater,create_time,creater_name,title,process_type,table_name,form_id,process_instance_id,process_instance_name)
+        values (#{creater}, #{createTime}, #{createrName}, #{title}, #{processType}, #{tableName}, #{formId}, #{processInstanceId}, #{processInstanceName})
+    </insert>
+
+    <select id="upcomeList" resultType="Map" parameterType="java.util.HashMap">
+        SELECT DISTINCT
+            t1.*,
+            t2.NAME_ AS formName,
+            t2.TENANT_ID_ AS systemSn,
+            t2.BUSINESS_KEY_ AS businessKey,
+            t2.PROC_INST_ID_ AS processInstanceId,
+            t1.CREATE_TIME_ AS startTime,
+            t4.creater_name AS createrName,
+            t4.form_id AS formId,
+            t4.process_instance_name AS processInstanceName,
+            t4.table_name AS tableName,
+            t4.title
+        FROM
+            act_ru_task t1
+        INNER JOIN act_ru_execution t2 ON t1.PROC_INST_ID_ = t2.PROC_INST_ID_
+        LEFT JOIN act_ru_identitylink t3 ON t3.TASK_ID_ = t1.ID_
+        LEFT JOIN lg_process_variables_log t4 ON t1.PROC_INST_ID_ = t4.process_instance_id
+        left join act_hi_identitylink t5 on t1.id_ = t5.task_id_
+        WHERE
+            t1.ASSIGNEE_ = #{username}
+        <if test="processInstanceName != '' and processInstanceName != null">
+            and t4.process_instance_name = #{processInstanceName}
+        </if>
+        <if test="groups.size()>0">
+            or t5.group_id_ in
+            <foreach collection="groups" item="groups" index="index"
+                     open="(" close=")" separator=",">
+                #{groups}
+            </foreach>
+        </if>
+            OR (
+                t1.ASSIGNEE_ IN (
+                    SELECT
+                        G.group_id_
+                    FROM
+                        act_id_membership G
+                    WHERE
+                        G.user_id_ = #{username}
+                )
+            )
+            OR (
+                (
+                    t1.ASSIGNEE_ IS NULL
+                    OR t1.ASSIGNEE_ = ''
+                )
+                AND (
+                    t3.USER_ID_ = #{username}
+                    OR t3.GROUP_ID_ IN (
+                        SELECT
+                            g.group_id_
+                        FROM
+                            act_id_membership g
+                        WHERE
+                            g.user_id_ = #{username}
+                    )
+                )
+            )
+            ORDER BY t1.CREATE_TIME_ desc
+    </select>
+</mapper>
